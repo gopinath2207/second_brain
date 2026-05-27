@@ -45,7 +45,7 @@ app.use(helmet()); // Security headers
 // CORS: Allow Vercel frontend and local dev
 const allowedOrigins = [
   process.env.CLIENT_URL || 'http://localhost:5173',
-  'https://second-brain-app.vercel.app', // Update with actual Vercel URL
+  'https://second-brain-topaz-one.vercel.app', // Update with actual Vercel URL
 ];
 app.use(
   cors({
