@@ -6,16 +6,32 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      // Dev proxy: forward /api requests to local backend
       '/api': {
         target: 'http://localhost:5000',
         changeOrigin: true,
       },
     },
   },
+  // Pre-bundle ALL heavy deps so the optimizer doesn't hang on Vercel
+  optimizeDeps: {
+    include: [
+      'react', 'react-dom', 'react-router-dom',
+      '@reduxjs/toolkit', 'react-redux',
+      'axios', 'react-hot-toast',
+      'lucide-react', 'recharts',
+      'framer-motion',
+      '@dnd-kit/core', '@dnd-kit/sortable', '@dnd-kit/utilities', '@dnd-kit/modifiers',
+      '@tiptap/react', '@tiptap/starter-kit',
+      '@tiptap/extension-placeholder', '@tiptap/extension-task-list',
+      '@tiptap/extension-task-item', '@tiptap/extension-text-style',
+      'date-fns',
+    ],
+  },
   build: {
     outDir: 'dist',
     sourcemap: false,
+    // Increase chunk size warning limit (TipTap is legitimately large)
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks: (id) => {
@@ -25,6 +41,8 @@ export default defineConfig({
             if (id.includes('@dnd-kit')) return 'vendor-dnd';
             if (id.includes('@reduxjs') || id.includes('react-redux')) return 'vendor-redux';
             if (id.includes('react-dom') || id.includes('react-router')) return 'vendor-react';
+            if (id.includes('framer-motion')) return 'vendor-motion';
+            if (id.includes('lucide-react')) return 'vendor-icons';
           }
         },
       },
