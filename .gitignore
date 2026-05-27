@@ -1,0 +1,35 @@
+# ── Dependencies ──────────────────────────────────────────────────────────────
+node_modules/
+.pnp
+.pnp.js
+
+# ── Environment variables (NEVER commit these) ────────────────────────────────
+.env
+.env.local
+.env.production
+.env.development
+server/.env
+server/.env.local
+client/.env
+client/.env.local
+
+# ── Build outputs ─────────────────────────────────────────────────────────────
+dist/
+build/
+client/dist/
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+
+# ── OS files ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Editor ────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+
+# ── Uploads (don't commit user files) ────────────────────────────────────────
+server/uploads/
